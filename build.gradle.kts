@@ -33,7 +33,10 @@ dependencies {
 	runtimeOnly("com.h2database:h2")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	// classpath ("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
+	testImplementation(platform("org.junit:junit-bom:5.7.0"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+	testImplementation ("org.jetbrains.kotlin:kotlin-test")
+	testCompile ("junit:junit:4.12")
 }
 
 tasks.withType<KotlinCompile> {
@@ -44,5 +47,6 @@ tasks.withType<KotlinCompile> {
 }
 
 tasks.withType<Test> {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }
+
