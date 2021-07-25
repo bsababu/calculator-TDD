@@ -6,6 +6,12 @@ class CalculatorTest {
 
     val calculator  = Calculator()
     @Test
+    fun testEmptyString () {
+        val result = calculator.emptyString(" ")
+        assertEquals(0, result)
+
+    }
+    @Test
     fun multiply2By2() {
         //val calculator  = Calculator()
         val result = calculator.kalculator("3 * 2")
@@ -21,10 +27,12 @@ class CalculatorTest {
     }
     @Test
     fun testMinus2By2 () {
-        
         val result = calculator.kalculator("2 - 2")
         assertEquals(0, result)
-
+    }
+    fun testMinus2By2digits () {
+        val result = calculator.kalculator("22 - 13")
+        assertEquals(11, result)
     }
     @Test
     fun testPlus2By2 () {
@@ -39,10 +47,12 @@ class CalculatorTest {
         assertEquals(1, result)
 
     }
+    
     @Test
-    fun testEmptyString () {
-        val result = calculator.emptyString(" ")
-        assertEquals(0, result)
+    
+    fun testModule_Log() {
+        val result = calculator.calclate_log(" 27 ")
+        assertEquals(1.431, result)
 
     }
     
