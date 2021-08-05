@@ -1,11 +1,15 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+val kotlinVersion = "1.5.10"
+
 plugins {
-	id("org.springframework.boot") version "2.4.6"
-	id("io.spring.dependency-management") version "1.0.11.RELEASE"
-	kotlin("jvm") version "1.4.32"
-	kotlin("plugin.spring") version "1.4.32"
-	kotlin("plugin.jpa") version "1.4.32"
+    val kotlinVersion = "1.5.10"
+    id("org.springframework.boot") version "2.5.0"
+    id("io.spring.dependency-management") version "1.0.11.RELEASE"
+    id("org.jlleitschuh.gradle.ktlint") version "10.1.0"
+    kotlin("jvm") version kotlinVersion
+    kotlin("plugin.spring") version kotlinVersion
+    kotlin("plugin.jpa") version kotlinVersion
 }
 
 group = "com.learning"
@@ -32,21 +36,28 @@ dependencies {
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("com.h2database:h2")
 	annotationProcessor("org.projectlombok:lombok")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation(platform("org.junit:junit-bom:5.7.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-	testImplementation ("org.jetbrains.kotlin:kotlin-test")
-	testCompile ("junit:junit:4.12")
+		// testImplementation("org.springframework.boot:spring-boot-starter-test")
+		// testImplementation(platform("org.junit:junit-bom:5.7.0"))
+
+	testImplementation("org.springframework.boot:spring-boot-starter-test"){
+        exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
+    }
+
+	testImplementation("org.jetbrains.kotlin:kotlin-test")
+	testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.4.2")
 }
 
 tasks.withType<KotlinCompile> {
 	kotlinOptions {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
 		jvmTarget = "11"
-	}
+		}
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
+    systemProperty("spring.profiles.active","test")
 }
 
