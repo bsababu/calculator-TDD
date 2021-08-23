@@ -1,47 +1,55 @@
 package com.learning.springbootkotlinh2
 
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import kotlin.test.assertEquals
 
 class CalculatorTest {
+	private val calculator  =Calculator()
 
-	val calculator  =Calculator()
 	@Test
-	fun testEmptyString () {
-		val result = calculator.emptyString("")
-		assertEquals(0, result)
-	}
-	@Test
-	fun testSingleValue () {
-		val res = calculator.singleDigit("1")
+	fun `Passing single value`() {
+		val res = calculator.computeIntegers("1")
 		assertEquals(1,res)
 	}
-	@Test
-	fun testAddition () {
-	    val result = calculator.kalculator("2 + 2")
-	    assertEquals(4, result)
 
+	@Test
+	fun `Adding two numbers`() {
+	    val result = calculator.computeIntegers("2 + 2")
+	    assertEquals(4, result)
 	}
 	@Test
-	fun testSubstract () {
-	    val result = calculator.kalculator("2 - 2")
+	fun `subtracting two numbers`() {
+	    val result = calculator.computeIntegers("2 - 2")
 	    assertEquals(0, result)
 	}
 	@Test
-	fun multiply() {
-	    //val calculator  = Calculator()
-	    // println("Testing...")
-	    val result = calculator.kalculator("3 * 2")
+
+	fun `Multiply two numbers`() {
+	    val result = calculator.computeIntegers("3 * 2")
 	    assertEquals(6, result)
 	}
 	@Test
-	fun testDevision () {
-	    val result = calculator.kalculator(s = "10 / 5")
+	fun `Dividing two numbers`() = run {
+	    val result = calculator.computeIntegers("10 / 5")
 	    assertEquals(2, result)
 	}
 	@Test
-	fun testModule_Log () {
-	    val result = calculator.calclate_log("log 27")
-	    assertEquals(1.431, result)
+	fun `impossible to divide by zero`() {
+		val exception = assertThrows<ArithmeticException> ("Impossible to divide by 0") {
+			calculator.computeIntegers("1 / 0")
+		}
+		assertEquals("Impossible to divide by 0", exception.message)
 	}
+	@Test
+	fun `Using different operands`() = run {
+		val result = calculator.multipleOperations("100 - 34 * 0")
+		assertEquals(100, result)
+	}
+	@Test
+	fun `logarithm of a number`() = run {
+		val result = calculator.calculateLogarithm("log 1000")
+		assertEquals(3.0,result, "The logs are fine")
+	}
+
 }
