@@ -21,11 +21,9 @@ class Calculator {
            "*" -> 0
            "/" -> 0
            "=" -> 0
-           else -> throw IllegalArgumentException("Invalid exception")
+           else -> throw NumberFormatException("Invalid exception")
        }
     }
-
-
     fun computeIntegers(s: String): Int {
         val expr = s.matches("/^(\\d+[\\+\\-\\*\\/]{1})+\\d+\$/g".toRegex())
         if (!expr) {
@@ -43,11 +41,11 @@ class Calculator {
                         } else {
                             a.toInt() / b.toInt()
                         }
-                    }else -> throw IllegalArgumentException("Invalid exception")
+                    }else -> throw NumberFormatException("Invalid exception")
                 }
             }
         }else {
-            throw IllegalArgumentException("Invalid exception")
+            throw NumberFormatException("Invalid exception")
         }
     }
 
@@ -76,6 +74,7 @@ class Calculator {
                 }else {
                     return 0
                 }
+
             }
         } else {
             throw IllegalArgumentException("Invalid exception")

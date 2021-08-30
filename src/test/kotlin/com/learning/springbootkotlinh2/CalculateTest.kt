@@ -1,12 +1,19 @@
 package com.learning.springbootkotlinh2
 
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.assertEquals
 
 class CalculatorTest {
-	private val calculator  =Calculator()
 
+	private val calculator= Calculator()
+
+	@BeforeEach
+	fun setup() {
+		println("The first test was called up")
+		Calculator()
+	}
 	@Test
 	fun `Passing single value`() {
 		val res = calculator.computeIntegers("1")
